@@ -32,58 +32,58 @@ class Departaments extends React.Component {
     if (data.departaments === 'developers') {
       let index = this.state.developers.length;
       data.index = index;
-      this.setState({
-        developers: [...this.state.developers, data] 
-      })
+      this.setState(state => ({
+        developers: [...state.developers, data] 
+      }))
     }
     if (data.departaments === 'designers') {
       let index = this.state.designers.length;
       data.index = index;
-      this.setState({
-        designers: [...this.state.designers, data]
-      })
+      this.setState(state => ({
+        designers: [...state.designers, data]
+      }))
     }
     if (data.departaments === 'accounting') {
       let index = this.state.accounting.length;
       data.index = index;
-      this.setState({
-        accounting: [...this.state.accounting, data]
-      })
+      this.setState(state => ({
+        accounting: [...state.accounting, data]
+      }))
     }
     if (data.departaments === 'sale') {
       let index = this.state.sale.length;
       data.index = index;
-      this.setState({
-        sale: [...this.state.sale, data]
-      })
+      this.setState(state => ({
+        sale: [...state.sale, data]
+      }))
     }
     if (data.departaments === 'marketing') {
       let index = this.state.marketing.length;
       data.index = index;
-      this.setState({
-        marketing: [...this.state.marketing, data]
-      })
+      this.setState(state => ({
+        marketing: [...state.marketing, data]
+      }))
     }
     if (data.departaments === 'headhunter') {
       let index = this.state.headhunter.length;
       data.index = index;
-      this.setState({
-        headhunter: [...this.state.headhunter, data]
-      })
+      this.setState(state => ({
+        headhunter: [...state.headhunter, data]
+      }))
     }
     if (data.departaments === 'support') {
       let index = this.state.support.length;
       data.index = index;
-      this.setState({
-        support: [...this.state.support, data]
-      })
+      this.setState(state => ({
+        support: [...state.support, data]
+      }))
     }
     if (data.departaments === 'management') {
       let index = this.state.management.length;
       data.index = index;
-      this.setState({
-        management: [...this.state.management, data]
-      })
+      this.setState(state => ({
+        management: [...state.management, data]
+      }))
     }
   }
 
@@ -104,58 +104,58 @@ class Departaments extends React.Component {
     switch (departament) {
       case 'developers':
         this.state.developers.splice(index, 1)
-        this.setState({
-          developers: this.state.developers
-        })
+        this.setState(state => ({
+          developers: state.developers
+        }))
         this.deleteItemDb('developers', item.id);
         break;
       case 'designers':
         this.state.designers.splice(index, 1)
-        this.setState({
-          designers: this.state.designers
-        })
+        this.setState(state => ({
+          designers: state.designers
+        }))
         this.deleteItemDb('designers', item.id);
         break;
       case 'headhunter':
         this.state.headhunter.splice(index, 1)
-        this.setState({
-          headhunter: this.state.headhunter
-        })
+        this.setState(state => ({
+          headhunter: state.headhunter
+        }))
         this.deleteItemDb('headhunter', item.id);
         break;
       case 'accounting':
         this.state.accounting.splice(index, 1)
-        this.setState({
-          accounting: this.state.accounting
-        })
+        this.setState(state => ({
+          accounting: state.accounting
+        }))
         this.deleteItemDb('accounting', item.id);
         break;
       case 'sale':
         this.state.sale.splice(index, 1)
-        this.setState({
-          sale: this.state.sale
-        })
+        this.setState(state => ({
+          sale: state.sale
+        }))
         this.deleteItemDb('sale', item.id);
         break;
       case 'marketing':
         this.state.marketing.splice(index, 1)
-        this.setState({
-          marketing: this.state.marketing
-        })
+        this.setState(state => ({
+          marketing: state.marketing
+        }))
         this.deleteItemDb('marketing', item.id);
         break;
       case 'management':
         this.state.management.splice(index, 1)
-        this.setState({
-          management: this.state.management
-        })
+        this.setState(state => ({
+          management: state.management
+        }))
         this.deleteItemDb('management', item.id);
         break;
       case 'support':
         this.state.support.splice(index, 1)
-        this.setState({
-          support: this.state.support
-        })
+        this.setState(state => ({
+          support: state.support
+        }))
         this.deleteItemDb('support', item.id);
         break;
     }
@@ -221,7 +221,6 @@ class Departaments extends React.Component {
   }
 
   componentDidMount() {
-    //open database
     let request = indexedDB.open(dbName, 1);
     // get store form indexdb for state
     request.onsuccess = (function (event) {
@@ -229,58 +228,58 @@ class Departaments extends React.Component {
       db.transaction('developers').objectStore('developers').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          developers: this.state.developers.concat(result)
-        });
+        this.setState(state => ({
+          developers: state.developers.concat(result)
+        }));
       }.bind(this));
       db.transaction('designers').objectStore('designers').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          designers: this.state.designers.concat(result)
-        });
+        this.setState(state => ({
+          designers: state.designers.concat(result)
+        }));
       }.bind(this));
       db.transaction('sale').objectStore('sale').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          sale: this.state.sale.concat(result)
-        });
+        this.setState(state => ({
+          sale: state.sale.concat(result)
+        }));
       }.bind(this));
       db.transaction('support').objectStore('support').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          support: this.state.support.concat(result)
-        });
+        this.setState(state => ({
+          support: state.support.concat(result)
+        }));
       }.bind(this));
       db.transaction('headhunter').objectStore('headhunter').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          headhunter: this.state.headhunter.concat(result)
-        });
+        this.setState(state => ({
+          headhunter: state.headhunter.concat(result)
+        }));
       }.bind(this));
       db.transaction('accounting').objectStore('accounting').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          accounting: this.state.accounting.concat(result)
-        });
+        this.setState(state => ({
+          accounting: state.accounting.concat(result)
+        }));
       }.bind(this));
       db.transaction('management').objectStore('management').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          management: this.state.management.concat(result)
-        });
+        this.setState(state => ({
+          management: state.management.concat(result)
+        }));
       }.bind(this));
       db.transaction('marketing').objectStore('marketing').getAll().onsuccess = (function (event) {
         let result = event.target.result;
         result.sort((prev, next) => prev.index - next.index);
-        this.setState({
-          marketing: this.state.marketing.concat(result)
-        });
+        this.setState(state => ({
+          marketing: state.marketing.concat(result)
+        }));
       }.bind(this));
     }.bind(this));
   }

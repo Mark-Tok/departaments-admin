@@ -53,49 +53,49 @@ class Authorization extends React.Component {
             db.transaction('developers').objectStore('developers').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('designers').objectStore('designers').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('sale').objectStore('sale').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('accounting').objectStore('accounting').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('management').objectStore('management').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('marketing').objectStore('marketing').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('headhunter').objectStore('headhunter').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
             db.transaction('support').objectStore('support').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState({ userData: [...this.state.userData, item] })
+                    this.setState(state => ({ userData: [...state.userData, item]}))
                 })
             }.bind(this));
         }.bind(this));
