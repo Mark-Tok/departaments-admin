@@ -1,12 +1,12 @@
 import React from 'react';
 import {  Link } from "react-router-dom";
 import user from '../img/user.png'
+
 class Userinfo extends React.Component {
   constructor(props) {
     super(props);
-    this.goToUrlNewUser = this.goToUrlNewUser.bind(this);
   }
-  goToUrlNewUser(item) {
+  goToUrlNewUser = (item) => {
     this.props.newUser(item);
   }
   render() {
@@ -32,5 +32,4 @@ class Userinfo extends React.Component {
     );
   }
 }
-
 export default Userinfo;

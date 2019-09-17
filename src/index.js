@@ -5,6 +5,7 @@ import Authorization from './authorization/index'
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter, BrowserRouter } from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
 import './stores/storesIndexDb.js'
+import './style/style.scss'
 
 ReactDOM.render(
 <BrowserRouter><Authorization />

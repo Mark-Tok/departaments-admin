@@ -9,22 +9,24 @@ class Form extends React.Component {
             classValidInputLogin: '',
             classValidInputPassword: ''
         };
-        this.inputPasswordChange = this.inputPasswordChange.bind(this);
-        this.inputLoginChange = this.inputLoginChange.bind(this);
-        this.login = this.login.bind(this);
-        this.validSymbol = this.validSymbol.bind(this);
     }
-    inputPasswordChange(event) {
+    inputPasswordChange = (event) => {
         const password = (event.target.validity.valid) ? event.target.value : this.state.password;
         this.setState({ password: password, classValidInputPassword: 'inlet' });
     }
 
-    inputLoginChange(event) {
+    inputLoginChange = (event) => {
         const login = (event.target.validity.valid) ? event.target.value : this.state.login;
         this.setState({ login: login, classValidInputLogin: 'inlet' });
     }
 
-    login() {
+    loginKeyPress = (event) => {
+        if (event.charCode === 13) {
+            this.login()
+        }
+    }
+
+    login = () => {
         if (this.state.password === '' || this.state.login === '') {
             if (this.state.password === '' && this.state.login === '') {
                 alert('Введите логин и пароль')
@@ -44,10 +46,6 @@ class Form extends React.Component {
         }
     }
 
-    validSymbol(event) {
-        return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)
-    }
-
     render() {
         return (
             <div className="App">
@@ -57,7 +55,8 @@ class Form extends React.Component {
                     onChange={this.inputLoginChange}
                     className={this.state.classValidInputLogin}
                     value={this.state.login}
-                    placeholder="Login" />
+                    placeholder="Login"
+                    onKeyPress={this.loginKeyPress} />
 
                 <input
                     type="text"
@@ -65,7 +64,8 @@ class Form extends React.Component {
                     className={this.state.classValidInputPassword}
                     placeholder="Password"
                     onChange={this.inputPasswordChange}
-                    value={this.state.password} />
+                    value={this.state.password}
+                    onKeyPress={this.loginKeyPress} />
                 <button onClick={this.login}>login</button>
             </div>
         );

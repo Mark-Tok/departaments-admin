@@ -1,7 +1,6 @@
 import React from 'react';
 import Adduser from './Adduser';
 import Userinfo from '../user/Userinfo';
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 require('indexeddb-getall-shim');
 
 const dbName = "departments";
@@ -17,15 +16,21 @@ class Departaments extends React.Component {
       marketing: [],
       headhunter: [],
       accounting: [],
-      management: []
+      management: [],
+      isOpenModal: false
     };
     this.addDataState = this.addDataState.bind(this);
     this.exit = this.exit.bind(this);
     this.deleteItemState = this.deleteItemState.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
   exit() {
     localStorage.removeItem('adminAuth');
+  }
+
+  handleOpenModal() {
+    this.setState(state => ({isOpenModal: !state.isOpenModal}))
   }
   
   addDataState(data) {
@@ -287,7 +292,10 @@ class Departaments extends React.Component {
   render() {
     return (
       <div className="App">
-        <Adduser getData={this.addDataState} />
+        <button onClick={this.handleOpenModal}>Добавить</button>
+        {
+          this.state.isOpenModal &&  <Adduser closeModal={this.handleOpenModal} getData={this.addDataState} />
+        }
         <div className="dev">
           <p>Отдел разработки</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}} departament='developers' info={this.state.developers} delete={this.deleteItemState} />

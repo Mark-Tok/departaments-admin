@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Form from './Form'
 import User from './../admin/User'
 import Userpage from '../user/Userpage'
@@ -15,37 +15,39 @@ class Authorization extends React.Component {
             userData: [],
             currentUser: '',
         };
-        this.login = this.login.bind(this);
-        this.createStores = this.createStores.bind(this);
-        this.newUser = this.newUser.bind(this);
-        this.inputPasswordChange = this.inputPasswordChange.bind(this);
-        this.inputLoginChange = this.inputLoginChange.bind(this);
     }
 
-    inputPasswordChange(event) {
-            this.setState({ password: event.target.value, classValidInputPassword: 'inlet' });
+    inputPasswordChange = (event) => {
+        this.setState({ password: event.target.value, classValidInputPassword: 'inlet' });
     }
 
-    inputLoginChange(event) {
+    inputLoginChange = (event) => {
         this.setState({ login: event.target.value, classValidInputLogin: 'inlet' });
     }
 
-    login(login, password) {
+    login = (login, password) => {
         if (password === 'admin' && login === 'admin') {
             localStorage.setItem('adminAuth', true)
             this.forceUpdate()
         }
         else {
-            this.state.userData.map((item) => {
+           let auth = () => this.state.userData.map((item) => {
                 if (item.password === password && item.login === login) {
                     localStorage.setItem('userAuth', JSON.stringify({ auth: true, user: item }))
                     this.forceUpdate()
                 }
-            })        
-    }
+                else {
+                    return false;
+                }
+            })
+            let responseAuth = auth()[auth().length - 1];
+            if (responseAuth === false) {
+                alert('Пользователь с такими данными не найден, проверьте правильность ввода данных')
+            }
+        }
     }
 
-    createStores() {
+    createStores = () => {
         let request = indexedDB.open(dbName, 1);
         // get data from db for auth
         request.onsuccess = (function (event) {
@@ -53,55 +55,55 @@ class Authorization extends React.Component {
             db.transaction('developers').objectStore('developers').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('designers').objectStore('designers').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('sale').objectStore('sale').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('accounting').objectStore('accounting').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('management').objectStore('management').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('marketing').objectStore('marketing').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('headhunter').objectStore('headhunter').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
             db.transaction('support').objectStore('support').getAll().onsuccess = (function (event) {
                 let result = event.target.result;
                 result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item]}))
+                    this.setState(state => ({ userData: [...state.userData, item] }))
                 })
             }.bind(this));
         }.bind(this));
     }
 
-    newUser(newItem) {
+    newUser = (newItem) => {
         this.setState({ userData: [...this.state.userData, newItem] })
     }
 
@@ -139,7 +141,7 @@ class Authorization extends React.Component {
                     let clearCurrentUserArray = currentUserArray.filter(function (el) {
                         return el != undefined;
                     });
-                    if (clearCurrentUserArray  != 0) {
+                    if (clearCurrentUserArray != 0) {
                         return (
                             <Router>
                                 <Route exact
@@ -164,7 +166,7 @@ class Authorization extends React.Component {
                     <Router>
                         <Route
                             path='/admin'
-                            render={(props) => <Departaments {...props}  newUser={(item) => { this.newUser(item) }}/>} />
+                            render={(props) => <Departaments {...props} newUser={(item) => { this.newUser(item) }} />} />
                         <Redirect to="/admin" />
                     </Router>
                 )
@@ -176,7 +178,7 @@ class Authorization extends React.Component {
                     <Router>
                         <Route
                             path='/'
-                            render={(props) => <Form {...props} login={(login, password) => {this.login(login, password)}} />} />
+                            render={(props) => <Form {...props} login={(login, password) => { this.login(login, password) }} />} />
                         <Redirect to="/" />
                     </Router>
                 </div>

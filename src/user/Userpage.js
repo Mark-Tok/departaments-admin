@@ -1,5 +1,4 @@
 import React from 'react';
-const dbName = "departments";
 
 class Userpage extends React.Component {
   constructor(props) {
@@ -7,10 +6,9 @@ class Userpage extends React.Component {
       this.state= {
         user: [JSON.parse(localStorage.getItem('userAuth')).user]
       };
-      this.exit = this.exit.bind(this);
   }
 
-  exit() {
+  exit = () =>  {
     localStorage.removeItem('userAuth');
   }
 
