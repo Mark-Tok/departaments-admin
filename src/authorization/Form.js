@@ -54,7 +54,7 @@ class Form extends React.Component {
                 <input
                     type="text"
                     pattern="[a-z,0-9,A-Z,_]*"
-                    onInput={this.inputLoginChange}
+                    onChange={this.inputLoginChange}
                     className={this.state.classValidInputLogin}
                     value={this.state.login}
                     placeholder="Login" />
@@ -64,7 +64,7 @@ class Form extends React.Component {
                     pattern="[a-z,0-9,A-Z,_]*"
                     className={this.state.classValidInputPassword}
                     placeholder="Password"
-                    onInput={this.inputPasswordChange}
+                    onChange={this.inputPasswordChange}
                     value={this.state.password} />
                 <button onClick={this.login}>login</button>
             </div>
