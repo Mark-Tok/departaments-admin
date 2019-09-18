@@ -1,3 +1,10 @@
+@import 'form.scss';
+@import 'departaments.scss';
+@import 'modal.scss';
+@import url('https://fonts.googleapis.com/css?family=Scada:400,400i,700&display=swap&subset=cyrillic,cyrillic-ext');
+
 body {
-    background: rgb(214, 187, 187);
+    background: rgb(243, 239, 239);
+    font-family: 'Scada', sans-serif !important;
+    min-width: 768px;
 }

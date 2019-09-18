@@ -291,44 +291,46 @@ class Departaments extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <button onClick={this.handleOpenModal}>Добавить</button>
+      <div className="departaments">
+        <button className="departaments__add" onClick={this.handleOpenModal}>Добавить</button>
+        <a href="" className="departaments__exit" onClick={this.exit}>Выйти</a>
         {
           this.state.isOpenModal &&  <Adduser closeModal={this.handleOpenModal} getData={this.addDataState} />
         }
-        <div className="dev">
+        <div className="departaments__wrapper">
+        <div className="departaments__dev">
           <p>Отдел разработки</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}} departament='developers' info={this.state.developers} delete={this.deleteItemState} />
         </div>
-        <div className="designer">
+        <div className="departaments__designer">
           <p>Отдел дизайна</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='designers' info={this.state.designers} delete={this.deleteItemState} />
         </div>
-        <div className="sale">
+        <div className="departaments__sale">
           <p>Отдел продаж</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='sale' info={this.state.sale} delete={this.deleteItemState} />
         </div>
-        <div className="support">
+        <div className="departaments__support">
           <p>Техническая поддержка</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='support' info={this.state.support} delete={this.deleteItemState} />
         </div>
-        <div className="headhunter">
+        <div className="departaments__headhunter">
           <p>Отдел кадров</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='headhunter' info={this.state.headhunter} delete={this.deleteItemState} />
         </div>
-        <div className="accounting">
+        <div className="departaments__accounting">
           <p>Отдел бухгалтерии</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='accounting' info={this.state.accounting} delete={this.deleteItemState} />
         </div>
-        <div className="marketing">
+        <div className="departaments__marketing">
           <p>Отдел маркетинга</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}} departament='marketing' info={this.state.marketing} delete={this.deleteItemState} />
         </div>
-        <div className="management">
+        <div className="departaments__management">
           <p>Отдел управления</p>
           <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='management' info={this.state.management} delete={this.deleteItemState} />
         </div>
-        <a href='' onClick={this.exit}>Выйти</a>
+        </div>
       </div>);
   }
 }
