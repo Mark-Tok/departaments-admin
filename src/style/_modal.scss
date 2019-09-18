@@ -1,0 +1,105 @@
+.modal {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.81);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: auto;
+
+    &__prompt {
+        color: white;
+        padding: 10px;
+    }
+
+    &__title {
+        color: white;
+        font-size: 21px;
+        padding-bottom: 12px;
+    }
+
+    &__wrapper {
+        width: 68%;
+        display: flex;
+        background: #4c90ff;
+        padding: 40px 0;
+        min-width: 726px;
+        max-width: 800px;
+        justify-content: center;
+        position: relative;
+    }
+    &__account,
+    &__contacts,
+    &__general {
+        display: flex;
+        flex-direction: column;
+        padding: 0 8px;
+        position: relative;
+        width: 27%;
+        p {
+            color: white;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+            width: 88%;
+        }
+        input {
+            height: 34px;
+            margin: 3px 0;
+            padding-left: 14px;
+        }
+        span {
+            color: #b3e4b3;
+        }
+        div {
+            &:before {
+            content: "*";
+            position: absolute;
+            left: -7px;
+            color: #ffa0a0;
+        }
+    }
+    }
+    &__close {
+        position: absolute;
+        top: -60px;
+        right: 0;
+        background: #fc7979;
+        border: none;
+        padding: 13px;
+        color: white;
+        cursor: pointer;
+        &:after {
+            content: "";
+            border: 20px solid transparent;
+            border-bottom: 0 solid #ff5555;
+            border-left: 13px solid #ff5555;
+            position: absolute;
+            top: 0;
+            right: -32px;
+        }
+    }
+    &__add {
+        height: 49px;
+        background: #ff5555;
+        border: none;
+        text-transform: uppercase;
+        color: white;
+        cursor: pointer;
+    }
+    &__valid {
+        position: absolute;
+        top: 12px;
+        color: #fbb1b1;
+        text-transform: uppercase;
+    }
+    select {
+        height: 40px;
+    }
+}

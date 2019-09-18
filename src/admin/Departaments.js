@@ -2,6 +2,9 @@ import React from 'react';
 import Adduser from './Adduser';
 import Userinfo from '../user/Userinfo';
 require('indexeddb-getall-shim');
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
+
 
 const dbName = "departments";
 
@@ -30,15 +33,15 @@ class Departaments extends React.Component {
   }
 
   handleOpenModal() {
-    this.setState(state => ({isOpenModal: !state.isOpenModal}))
+    this.setState(state => ({ isOpenModal: !state.isOpenModal }))
   }
-  
+
   addDataState(data) {
     if (data.departaments === 'developers') {
       let index = this.state.developers.length;
       data.index = index;
       this.setState(state => ({
-        developers: [...state.developers, data] 
+        developers: [...state.developers, data]
       }))
     }
     if (data.departaments === 'designers') {
@@ -92,7 +95,7 @@ class Departaments extends React.Component {
     }
   }
 
- addDataInDb(newData, store) {
+  addDataInDb(newData, store) {
     let request = indexedDB.open(dbName, 1);
     request.onsuccess = function (event) {
       let db = event.target.result;
@@ -290,45 +293,57 @@ class Departaments extends React.Component {
   }
 
   render() {
+    const db = [...this.state.developers, ...this.state.designers, ...this.state.sale, ...this.state.marketing, ...this.state.support, ...this.state.accounting, ...this.state.management, ...this.state.headhunter];
     return (
-      <div className="App">
-        <button onClick={this.handleOpenModal}>Добавить</button>
+      <div className="departaments">
+        <div className="loader">
+          <Loader
+            type="Triangle"
+            color="#4688f4"
+            height={300}
+            width={300}
+            timeout={700}
+          />
+        </div>
+        <button className="departaments__add" onClick={this.handleOpenModal}>Добавить</button>
+        <a href="" className="departaments__exit" onClick={this.exit}>Выйти</a>
         {
-          this.state.isOpenModal &&  <Adduser closeModal={this.handleOpenModal} getData={this.addDataState} />
+          this.state.isOpenModal && <Adduser dataBase={db} closeModal={this.handleOpenModal} getData={this.addDataState} />
         }
-        <div className="dev">
-          <p>Отдел разработки</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}} departament='developers' info={this.state.developers} delete={this.deleteItemState} />
+        <div className="departaments__wrapper">
+          <div className="departaments__dev">
+            <p>Отдел разработки</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='developers' info={this.state.developers} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__designer">
+            <p>Отдел дизайна</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='designers' info={this.state.designers} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__sale">
+            <p>Отдел продаж</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='sale' info={this.state.sale} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__support">
+            <p>Техническая поддержка</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='support' info={this.state.support} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__headhunter">
+            <p>Отдел кадров</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='headhunter' info={this.state.headhunter} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__accounting">
+            <p>Отдел бухгалтерии</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='accounting' info={this.state.accounting} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__marketing">
+            <p>Отдел маркетинга</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='marketing' info={this.state.marketing} delete={this.deleteItemState} />
+          </div>
+          <div className="departaments__management">
+            <p>Отдел управления</p>
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='management' info={this.state.management} delete={this.deleteItemState} />
+          </div>
         </div>
-        <div className="designer">
-          <p>Отдел дизайна</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='designers' info={this.state.designers} delete={this.deleteItemState} />
-        </div>
-        <div className="sale">
-          <p>Отдел продаж</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='sale' info={this.state.sale} delete={this.deleteItemState} />
-        </div>
-        <div className="support">
-          <p>Техническая поддержка</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='support' info={this.state.support} delete={this.deleteItemState} />
-        </div>
-        <div className="headhunter">
-          <p>Отдел кадров</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='headhunter' info={this.state.headhunter} delete={this.deleteItemState} />
-        </div>
-        <div className="accounting">
-          <p>Отдел бухгалтерии</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='accounting' info={this.state.accounting} delete={this.deleteItemState} />
-        </div>
-        <div className="marketing">
-          <p>Отдел маркетинга</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}} departament='marketing' info={this.state.marketing} delete={this.deleteItemState} />
-        </div>
-        <div className="management">
-          <p>Отдел управления</p>
-          <Userinfo newUser={(item) => {this.props.newUser(item)}}  departament='management' info={this.state.management} delete={this.deleteItemState} />
-        </div>
-        <a href='' onClick={this.exit}>Выйти</a>
       </div>);
   }
 }

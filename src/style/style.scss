@@ -1,3 +1,27 @@
+@import 'form.scss';
+@import 'departaments.scss';
+@import 'modal.scss';
+@import url('https://fonts.googleapis.com/css?family=Scada:400,400i,700&display=swap&subset=cyrillic,cyrillic-ext');
+@import 'user.scss';
+
 body {
-    background: rgb(214, 187, 187);
+    background: rgb(243, 239, 239);
+    font-family: 'Scada', sans-serif !important;
+    min-width: 768px;
+}
+
+.loader {
+    div:nth-child(1) {
+        position: fixed;
+        top: -97px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        background: #f3efef;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        justify-content: center;
+    }
 }

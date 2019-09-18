@@ -1,0 +1,63 @@
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 97vh;
+
+    &__back {
+        background: rgba(1, 1, 1, 0.22);
+        background-image: url('../img/arrow.png');
+        position: fixed;
+        left: 0;
+        height: 100%;
+        top: 0;
+        width: 5%;
+        background-repeat: no-repeat;
+        background-size: 92%;
+        background-position: center;
+        transition: 0.2s;
+        
+        &:hover {
+            background: rgba(1, 1, 1, 0.4);
+            background-image: url('../img/arrow.png');
+            position: fixed;
+            left: 0;
+            height: 100%;
+            top: 0;
+            width: 5%;
+            background-repeat: no-repeat;
+            background-size: 92%;
+            background-position: center;
+            transition: 0.2s;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__avatar  {
+        max-width: 500px;
+        img {
+        max-width: 100%;
+        }
+    }
+    &__info {
+        ul {
+            li {
+                list-style: none;
+                font-size: 18px;
+                text-transform: uppercase;
+                padding: 6px;
+                
+                span {
+                    font-weight: 600;
+                    font-size: 20px;
+                    margin-right: 20px;
+                    color: #787878;
+                }
+            }
+        }
+    }    
+}

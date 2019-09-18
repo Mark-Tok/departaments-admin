@@ -30,15 +30,15 @@ class Form extends React.Component {
         if (this.state.password === '' || this.state.login === '') {
             if (this.state.password === '' && this.state.login === '') {
                 alert('Введите логин и пароль')
-                this.setState({ classValidInputLogin: 'erorr', classValidInputPassword: 'erorr' })
+                this.setState({ classValidInputLogin: 'error', classValidInputPassword: 'error' })
             }
             else if (this.state.login === '') {
                 alert('Введите логин')
-                this.setState({ classValidInputLogin: 'erorr' })
+                this.setState({ classValidInputLogin: 'error' })
             }
             else if (this.state.password === '') {
                 alert('Введите пароль')
-                this.setState({ classValidInputPassword: 'erorr' })
+                this.setState({ classValidInputPassword: 'error' })
             }
         }
         else {
@@ -48,25 +48,35 @@ class Form extends React.Component {
 
     render() {
         return (
-            <div className="App">
-                <input
-                    type="text"
-                    pattern="[a-z,0-9,A-Z,_]*"
-                    onChange={this.inputLoginChange}
-                    className={this.state.classValidInputLogin}
-                    value={this.state.login}
-                    placeholder="Login"
-                    onKeyPress={this.loginKeyPress} />
-
-                <input
-                    type="text"
-                    pattern="[a-z,0-9,A-Z,_]*"
-                    className={this.state.classValidInputPassword}
-                    placeholder="Password"
-                    onChange={this.inputPasswordChange}
-                    value={this.state.password}
-                    onKeyPress={this.loginKeyPress} />
-                <button onClick={this.login}>login</button>
+            <div className="form">
+                <div className="form__wrapper">
+                    <div>
+                        <input
+                            type="text"
+                            pattern="[a-z,0-9,A-Z,_]*"
+                            onChange={this.inputLoginChange}
+                            className={this.state.classValidInputLogin}
+                            value={this.state.login}
+                            placeholder="Логин"
+                            onKeyPress={this.loginKeyPress} />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            pattern="[a-z,0-9,A-Z,_]*"
+                            className={this.state.classValidInputPassword}
+                            placeholder="Пароль"
+                            type="password"
+                            onChange={this.inputPasswordChange}
+                            value={this.state.password}
+                            onKeyPress={this.loginKeyPress} />
+                    </div>
+                    <button onClick={this.login}>войти</button>
+                    {this.props.validData &&
+                        <div className="unvalid">
+                            Пользователь с такими данными не существует, проверьте правильность ввода данных
+                    </div>}
+                </div>
             </div>
         );
     }
