@@ -112,7 +112,16 @@ class Adduser extends React.Component {
 
   add = () => {
     let { name, login, password, surname, patronymic, position, email, phone, age } = this.state
-    if (name === '' ||
+    let arrayLoginFormDb = this.props.dataBase.map((item) => {
+      if (item.login === login) {
+        return item.login;
+      }
+    })
+    let getLoginFomArray = [...new Set(arrayLoginFormDb)];
+    let clearArrayLogin = getLoginFomArray.filter(function (el) {
+      return el != undefined;
+    });
+     if (name === '' ||
       surname === '' ||
       patronymic === '' ||
       position === '' ||
@@ -122,6 +131,9 @@ class Adduser extends React.Component {
       login === '' ||
       password === '') {
       this.setState(state => ({ valid: !state.valid }))
+    }
+    else if (clearArrayLogin.join() == login) {
+      alert('Пользователь с таким ником уже существует, придумайте новый')
     }
     else {
       let currentData = {
@@ -146,8 +158,8 @@ class Adduser extends React.Component {
       }, 300);
     }
   }
-
   render() {
+
     return (
       <div className="modal">
         <div className="modal__title">Новый сотрудник</div>

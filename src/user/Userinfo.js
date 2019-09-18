@@ -21,7 +21,7 @@ class Userinfo extends React.Component {
                   <Link onClick={() => { this.goToUrlNewUser(item) }} to={'/admin/id' + item.id}>
                     {item.name + ' ' + item.surname}
                   </Link>
-                  </div>
+                </div>
                 <button className="info__delete" onClick={() => { this.props.delete(item, index, this.props.departament) }}>Удалить</button>
               </div>
             </li>

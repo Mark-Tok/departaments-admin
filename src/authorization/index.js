@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Form from './Form'
-import User from './../admin/User'
+import User from '../admin/UserPageForAdmin'
 import Userpage from '../user/Userpage'
 import Departaments from './../admin/Departaments'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 const dbName = "departments";
 
@@ -14,6 +16,7 @@ class Authorization extends React.Component {
             view: null,
             userData: [],
             currentUser: '',
+            validData: false
         };
     }
 
@@ -31,7 +34,7 @@ class Authorization extends React.Component {
             this.forceUpdate()
         }
         else {
-           let auth = () => this.state.userData.map((item) => {
+            this.state.userData.map((item) => {
                 if (item.password === password && item.login === login) {
                     localStorage.setItem('userAuth', JSON.stringify({ auth: true, user: item }))
                     this.forceUpdate()
@@ -40,9 +43,8 @@ class Authorization extends React.Component {
                     return false;
                 }
             })
-            let responseAuth = auth()[auth().length - 1];
-            if (responseAuth === false) {
-                alert('Пользователь с такими данными не найден, проверьте правильность ввода данных')
+            if (localStorage.getItem('userAuth') === null) {
+                this.setState(state => ({ validData: state.validData = true }))
             }
         }
     }
@@ -175,10 +177,19 @@ class Authorization extends React.Component {
         else {
             return (
                 <div>
+                    <div className="loader">
+                        <Loader
+                            type="Triangle"
+                            color="#4688f4"
+                            height={300}
+                            width={300}
+                            timeout={1500}
+                        />
+                    </div>
                     <Router>
                         <Route
                             path='/'
-                            render={(props) => <Form {...props} login={(login, password) => { this.login(login, password) }} />} />
+                            render={(props) => <Form {...props} validData={this.state.validData} login={(login, password) => { this.login(login, password) }} />} />
                         <Redirect to="/" />
                     </Router>
                 </div>

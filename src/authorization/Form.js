@@ -50,28 +50,32 @@ class Form extends React.Component {
         return (
             <div className="form">
                 <div className="form__wrapper">
-                <div>    
-                <input
-                    type="text"
-                    pattern="[a-z,0-9,A-Z,_]*"
-                    onChange={this.inputLoginChange}
-                    className={this.state.classValidInputLogin}
-                    value={this.state.login}
-                    placeholder="Логин"
-                    onKeyPress={this.loginKeyPress} />
-                </div>    
-                <div>
-                <input
-                    type="text"
-                    pattern="[a-z,0-9,A-Z,_]*"
-                    className={this.state.classValidInputPassword}
-                    placeholder="Пароль"
-                    type="password"
-                    onChange={this.inputPasswordChange}
-                    value={this.state.password}
-                    onKeyPress={this.loginKeyPress} />
-                 </div>   
-                <button onClick={this.login}>войти</button>
+                    <div>
+                        <input
+                            type="text"
+                            pattern="[a-z,0-9,A-Z,_]*"
+                            onChange={this.inputLoginChange}
+                            className={this.state.classValidInputLogin}
+                            value={this.state.login}
+                            placeholder="Логин"
+                            onKeyPress={this.loginKeyPress} />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            pattern="[a-z,0-9,A-Z,_]*"
+                            className={this.state.classValidInputPassword}
+                            placeholder="Пароль"
+                            type="password"
+                            onChange={this.inputPasswordChange}
+                            value={this.state.password}
+                            onKeyPress={this.loginKeyPress} />
+                    </div>
+                    <button onClick={this.login}>войти</button>
+                    {this.props.validData &&
+                        <div className="unvalid">
+                            Пользователь с такими данными не существует, проверьте правильность ввода данных
+                    </div>}
                 </div>
             </div>
         );
