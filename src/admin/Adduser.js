@@ -198,9 +198,7 @@ class Adduser extends React.Component {
             <div><input pattern="[a-z,0-9,A-Z,_]*" value={this.state.password} onChange={this.inputPasswordChange} placeholder="Пароль" type="text" /></div>
             <div><input pattern="[a-z,0-9,A-Z,_]*" value={this.state.login} onChange={this.inputLoginChange} placeholder="Логин" type="text" /></div>
             {this.state.isLoadFile === false ? <span>Нажмите что бы загрузить фото сотрудника</span> : <span>Изображение загруженно</span>}
-            <input type="file" onChange={this.handleFileSelect} name="files[]" multiple />
-            <span>или вставьте ссылку на изображение в поле ниже</span>
-            <input pattern="[0-9,_,@,a-z,A-Z,/,:,.,+,-,=,;]*" value={this.state.imageurl} onChange={this.inputImageurlChange} placeholder="URL image" type="text" />
+            <input type="file" accept="image/x-png,image/gif,image/jpeg"  onChange={this.handleFileSelect} name="files[]" multiple />    
             <button className="modal__add" onClick={() => { this.add() }}>Добавить сотрудника</button>
             <button className="modal__close" onClick={this.props.closeModal}>Закрыть</button>
           </div>
