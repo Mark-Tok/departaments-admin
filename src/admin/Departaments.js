@@ -8,6 +8,7 @@ import Loader from 'react-loader-spinner'
 
 const dbName = "departments";
 
+
 class Departaments extends React.Component {
   constructor(props) {
     super(props);
@@ -22,21 +23,17 @@ class Departaments extends React.Component {
       management: [],
       isOpenModal: false
     };
-    this.addDataState = this.addDataState.bind(this);
-    this.exit = this.exit.bind(this);
-    this.deleteItemState = this.deleteItemState.bind(this);
-    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
-  exit() {
+  exit = () => {
     localStorage.removeItem('adminAuth');
   }
 
-  handleOpenModal() {
+  handleOpenModal = () => {
     this.setState(state => ({ isOpenModal: !state.isOpenModal }))
   }
 
-  addDataState(data) {
+  addDataState = (data) => {
     if (data.departaments === 'developers') {
       let index = this.state.developers.length;
       data.index = index;
@@ -95,7 +92,7 @@ class Departaments extends React.Component {
     }
   }
 
-  addDataInDb(newData, store) {
+  addDataInDb = (newData, store) => {
     let request = indexedDB.open(dbName, 1);
     request.onsuccess = function (event) {
       let db = event.target.result;
@@ -108,7 +105,7 @@ class Departaments extends React.Component {
     };
   }
 
-  deleteItemState(item, index, departament) {
+  deleteItemState = (item, index, departament) => {
     switch (departament) {
       case 'developers':
         this.state.developers.splice(index, 1)
@@ -169,7 +166,7 @@ class Departaments extends React.Component {
     }
   }
 
-  deleteItemDb(store, id) {
+  deleteItemDb = (store, id) => {
     let request = indexedDB.open(dbName, 1);
     request.onsuccess = function (event) {
       let db = event.target.result;
@@ -228,68 +225,67 @@ class Departaments extends React.Component {
     }
   }
 
-  componentDidMount() {
-    let request = indexedDB.open(dbName, 1);
+  getDataFromIndexDb = () => {
     // get store form indexdb for state
-    request.onsuccess = (function (event) {
-      let db = event.target.result;
-      db.transaction('developers').objectStore('developers').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          developers: state.developers.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('designers').objectStore('designers').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          designers: state.designers.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('sale').objectStore('sale').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          sale: state.sale.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('support').objectStore('support').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          support: state.support.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('headhunter').objectStore('headhunter').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          headhunter: state.headhunter.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('accounting').objectStore('accounting').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          accounting: state.accounting.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('management').objectStore('management').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          management: state.management.concat(result)
-        }));
-      }.bind(this));
-      db.transaction('marketing').objectStore('marketing').getAll().onsuccess = (function (event) {
-        let result = event.target.result;
-        result.sort((prev, next) => prev.index - next.index);
-        this.setState(state => ({
-          marketing: state.marketing.concat(result)
-        }));
-      }.bind(this));
-    }.bind(this));
+    let request = indexedDB.open(dbName, 1);
+    const transaction = (function (departament, request) {
+      request.onsuccess = (event) => {
+        const db = event.target.result;
+        departament.map((item) => {
+          db.transaction(item).objectStore(item).getAll().onsuccess = (function (event) {
+            const result = event.target.result;
+            result.sort((prev, next) => prev.index - next.index);
+              switch (item) {
+                case 'developers':
+                  this.setState(state => ({
+                    developers: state.developers.concat(result)
+                  }))
+                  break;
+                case 'sale':
+                  this.setState(state => ({
+                    sale: state.sale.concat(result)
+                  }))
+                  break;
+                case 'designers':
+                  this.setState(state => ({
+                    designers: state.designers.concat(result)
+                  }))
+                  break;
+                case 'support':
+                  this.setState(state => ({
+                    support: state.support.concat(result)
+                  }))
+                  break;
+                case 'headhunter':
+                  this.setState(state => ({
+                    headhunter: state.headhunter.concat(result)
+                  }))
+                  break;
+                case 'accounting':
+                  this.setState(state => ({
+                    accounting: state.accounting.concat(result)
+                  }))
+                  break;
+                case 'management':
+                  this.setState(state => ({
+                    management: state.management.concat(result)
+                  }))
+                  break;
+                case 'marketing':
+                  this.setState(state => ({
+                    marketing: state.marketing.concat(result)
+                  }))
+                  break;
+              }
+          }).bind(this)
+        })
+      }
+    }).bind(this)
+    transaction(['developers',  'headhunter', 'marketing', 'designers', 'sale', 'accounting', 'management', 'support'], request)
+  }
+
+  componentDidMount() {
+    this.getDataFromIndexDb()
   }
 
   render() {
@@ -313,35 +309,35 @@ class Departaments extends React.Component {
         <div className="departaments__wrapper">
           <div className="departaments__dev">
             <p>Отдел разработки</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='developers' info={this.state.developers} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.developers} delete={this.deleteItemState} />
           </div>
           <div className="departaments__designer">
             <p>Отдел дизайна</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='designers' info={this.state.designers} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.designers} delete={this.deleteItemState} />
           </div>
           <div className="departaments__sale">
             <p>Отдел продаж</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='sale' info={this.state.sale} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }} info={this.state.sale} delete={this.deleteItemState} />
           </div>
           <div className="departaments__support">
             <p>Техническая поддержка</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='support' info={this.state.support} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.support} delete={this.deleteItemState} />
           </div>
           <div className="departaments__headhunter">
             <p>Отдел кадров</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='headhunter' info={this.state.headhunter} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.headhunter} delete={this.deleteItemState} />
           </div>
           <div className="departaments__accounting">
             <p>Отдел бухгалтерии</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='accounting' info={this.state.accounting} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.accounting} delete={this.deleteItemState} />
           </div>
           <div className="departaments__marketing">
             <p>Отдел маркетинга</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='marketing' info={this.state.marketing} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.marketing} delete={this.deleteItemState} />
           </div>
           <div className="departaments__management">
             <p>Отдел управления</p>
-            <Userinfo newUser={(item) => { this.props.newUser(item) }} departament='management' info={this.state.management} delete={this.deleteItemState} />
+            <Userinfo newUser={(item) => { this.props.newUser(item) }}  info={this.state.management} delete={this.deleteItemState} />
           </div>
         </div>
       </div>);

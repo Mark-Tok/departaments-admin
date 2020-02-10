@@ -7,8 +7,6 @@ import Departaments from './../admin/Departaments'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 
-const dbName = "departments";
-
 class Authorization extends React.Component {
     constructor(props) {
         super(props);
@@ -49,68 +47,8 @@ class Authorization extends React.Component {
         }
     }
 
-    createStores = () => {
-        let request = indexedDB.open(dbName, 1);
-        // get data from db for auth
-        request.onsuccess = (function (event) {
-            let db = event.target.result;
-            db.transaction('developers').objectStore('developers').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('designers').objectStore('designers').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('sale').objectStore('sale').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('accounting').objectStore('accounting').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('management').objectStore('management').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('marketing').objectStore('marketing').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('headhunter').objectStore('headhunter').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-            db.transaction('support').objectStore('support').getAll().onsuccess = (function (event) {
-                let result = event.target.result;
-                result.map((item) => {
-                    this.setState(state => ({ userData: [...state.userData, item] }))
-                })
-            }.bind(this));
-        }.bind(this));
-    }
-
     newUser = (newItem) => {
         this.setState({ userData: [...this.state.userData, newItem] })
-    }
-
-    componentDidMount() {
-        this.createStores();
     }
 
     render() {
